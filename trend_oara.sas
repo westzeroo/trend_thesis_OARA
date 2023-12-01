@@ -571,7 +571,7 @@ if rheum="" then rheum=0;
 run;
 
 
-/*total weight*/
+/*total weight arrange*/
 proc sort data=y nodupkey out=test;
 by year psu;
 run;
@@ -596,3 +596,13 @@ if year=2020 then output _2020;
 if year=2021 then output _2021;
 run;
 
+/*total weight*/
+data y2;
+set y;
+if year in (2005) then wt_bhvex=wt_itv;
+run;
+
+data y3;
+set y;
+if year in (2007 2008 2009) then wt_itvex=wt_itv;
+run;
