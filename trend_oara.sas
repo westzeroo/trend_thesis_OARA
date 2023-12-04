@@ -20,7 +20,7 @@ data HN20_all; set WEZE.HN20_all; rename BS3_1=smoking; run;
 data HN21_all; set WEZE.HN21_all; rename BS3_1=smoking; run;
 
 /*drinking naming*/
-data HN05_all; set hn05_all; rename BD1_11=drinking; run;
+data HN05_all; set hn05_all; rename BD1_12=drinking; run;
 data HN07_all; set hn07_all; rename BD1_11=drinking; run;
 data HN08_all; set hn08_all; rename BD1_11=drinking; run;
 data HN09_all; set hn09_all; rename BD1_11=drinking; run;
@@ -601,8 +601,90 @@ data y2;
 set y;
 if year in (2005) then wt_bhvex=wt_itv;
 run;
-
-data y3;
+data y2;
 set y;
 if year in (2007 2008 2009) then wt_itvex=wt_itv;
+run;
+
+
+/*total weight*/
+/*data y2;
+set y2;
+label wt_total='통합가중치';
+if year=2005 then wt_total=wt_itvex*(600/3392);
+if year=2007 then wt_total=wt_itvex*(100/2792);
+else if year=2008 then wt_total=wt_itvex*(200/2792);
+else if year=2009 then wt_total=wt_itvex*(200/2792);
+else if year=2010 then wt_total=wt_itvex*(192/2792);
+else if year=2011 then wt_total=wt_itvex*(192/2792);
+else if year=2012 then wt_total=wt_itvex*(192/2792);
+else if year=2013 then wt_total=wt_itvex*(192/2792);
+else if year=2014 then wt_total=wt_itvex*(192/2792);
+else if year=2015 then wt_total=wt_itvex*(192/2792);
+else if year=2016 then wt_total=wt_itvex*(192/2792);
+else if year=2017 then wt_total=wt_itvex*(192/2792);
+else if year=2018 then wt_total=wt_itvex*(192/2792);
+else if year=2019 then wt_total=wt_itvex*(192/2792);
+else if year=2020 then wt_total=wt_itvex*(192/2792);
+else if year=2021 then wt_total=wt_itvex*(180/2792);
+run;*/
+
+/*age classify*/
+data y3;
+set y2;
+if 19 <= age =< 29 then old_2=1;
+else if 30 =< age =< 39 then old_2=2;
+else if 40 =< age =< 49 then old_2=3;
+else if 50 =< age =< 59 then old_2=4;
+else if 60 =< age =< 69 then old_2=5;
+else if 70 =< age =< 79 then old_2=6;
+else if 80 =< age then old_2=7
+run;
+
+/*bmi classify*/
+data y4;
+set y3;
+if he_BMI=. then he_bmi=(he_wt/(he_ht*he_ht))*10000;
+run;
+
+data y4;
+set y4;
+if 0< he_BMI <18.5 then bmi=1; /*저체중*/
+else if 18.5<= he_BMI < 23 then bmi=2; /*정상체중*/
+else if 23<= he_BMI < 25 then bmi=3; /*과체중*/
+else if 25<= he_BMI then bmi=4; /*비만*/
+else bmi=8;
+run;
+
+ proc freq data=y4;
+table bmi;
+run;
+
+
+/*driniking classfiy*/
+data y4;
+set y4;
+if year in (2005) and drinking=0 then drinking_1 = 1; /*Non-drinker*/
+else if year in (2005) and drinking=88 then drinking_1 = 1; /*Non-drinker*/
+else if year in (2005) and 1<= drinking <=5  then drinking_1 = 2; /*1~5days/month*/
+else if year in (2005) and 6<= drinking <=31  then drinking_1 = 3; /*6~30days/month*/
+else if year in (2005) then drinking_1=8; /*Unknown*/
+run;
+
+data y4;
+set y4;
+if year in (2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021) and drinking in (8 9) then drinking_1 = 1;
+else if year in (2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021) and drinking in (1 2 3 4) then drinking_1=2;
+else if year in (2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021) and drinking in (5 6) then drinking_1=3;
+else if year in (2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021) then drinking_1=8;
+run;
+
+data y4;
+set y4;
+if year in (2005 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021) and drinking="." then drinking_1 = 8;
+if year in (2005 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021) and drinking="" then drinking_1 = 8;
+run;
+
+proc freq data=y5;
+table year old_2 sex town_t ho_incm grade smoking drinking_1 BMI diabetes stroke heart cancer1 cancer2 cancer3 cancer4 cancer5 cancer6 kidney osteo vday1 vmin1 mday1 mmin1 vwday vwmin vlday vlmin mwday mwmin mlday mlmin;
 run;
