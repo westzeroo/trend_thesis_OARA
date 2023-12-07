@@ -19,24 +19,6 @@ data HN19_all; set WEZE.HN19_all; rename BS3_1=smoking; run;
 data HN20_all; set WEZE.HN20_all; rename BS3_1=smoking; run;
 data HN21_all; set WEZE.HN21_all; rename BS3_1=smoking; run;
 
-/*drinking naming*/
-data HN05_all; set HN05_all; rename BD1_12=drinking; run;
-data HN07_all; set HN07_all; rename BD1_11=drinking; run;
-data HN08_all; set HN08_all; rename BD1_11=drinking; run;
-data HN09_all; set HN09_all; rename BD1_11=drinking; run;
-data HN10_all; set HN10_all; rename BD1_11=drinking; run;
-data HN11_all; set HN11_all; rename BD1_11=drinking; run;
-data HN12_all; set HN12_all; rename BD1_11=drinking; run;
-data HN13_all; set HN13_all; rename BD1_11=drinking; run;
-data HN14_all; set HN14_all; rename BD1_11=drinking; run;
-data HN15_all; set HN15_all; rename BD1_11=drinking; run;
-data HN16_all; set HN16_all; rename BD1_11=drinking; run;
-data HN17_all; set HN17_all; rename BD1_11=drinking; run;
-data HN18_all; set HN18_all; rename BD1_11=drinking; run;
-data HN19_all; set HN19_all; rename BD1_11=drinking; run;
-data HN20_all; set HN20_all; rename BD1_11=drinking; run;
-data HN21_all; set HN21_all; rename BD1_11=drinking; run;
-
 
 /*two diseases naming*/
 /*rheumatoid arthritis naming(rheum)*/
@@ -79,82 +61,82 @@ data HN21_all; set HN21_all; rename DM2_dg=osteo; run;
 /*columns extract*/
 data HN05_all;
 set HN05_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_bhvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_bhvex kstrata;
 run;
 
 data HN07_all;
 set HN07_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itv kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itv kstrata;
 run;
 
 data HN08_all;
 set HN08_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itv kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itv kstrata;
 run;
 
 data HN09_all;
 set HN09_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itv kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itv kstrata;
 run;
 
 data HN10_all;
 set HN10_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
 run;
 
 data HN11_all;
 set HN11_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
 run;
 
 data HN12_all;
 set HN12_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
 run;
 
 data HN13_all;
 set HN13_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
 run;
 
 data HN14_all;
 set HN14_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
 run;
 
 data HN15_all;
 set HN15_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
 run;
 
 data HN16_all;
 set HN16_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
 run;
 
 data HN17_all;
 set HN17_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
 run;
 
 data HN18_all;
 set HN18_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
 run;
 
 data HN19_all;
 set HN19_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
 run;
 
 data HN20_all;
 set HN20_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
 run;
 
 data HN21_all;
 set HN21_all;
-keep year age psu sex town_t ho_incm educ smoking drinking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itvex kstrata;
 run;
 
 
@@ -543,6 +525,7 @@ else if smoking="" then smoking=8;
 else smoking=8;
 run;
 
+
 /*merge smoking datas*/
 data y;
 set smoking_05  smoking_07  smoking_08	smoking_09	smoking_10	smoking_11	smoking_12	smoking_13	smoking_14	smoking_15	smoking_16	smoking_17	smoking_18	smoking_19	smoking_20	smoking_21;
@@ -599,15 +582,11 @@ run;
 /*total weight*/
 data y2;
 set y;
-if year in (2005) then wt_itvex=wt_bhvex;
-run;
-data y2;
-set y;
-if year in (2007 2008 2009) then wt_itvex=wt_itv;
+if year in (2005 2007 2008 2009) then wt_itvex=wt_itv;
 run;
 
 
-/*total weight*/
+/*total weight_base*/
 data y2;
 set y2;
 label wt_total='total weight';
@@ -628,6 +607,7 @@ else if year=2019 then wt_total=wt_itvex*(192/3392);
 else if year=2020 then wt_total=wt_itvex*(192/3392);
 else if year=2021 then wt_total=wt_itvex*(180/3392);
 run;
+
 
 /*age classify*/
 data y3;
@@ -661,34 +641,9 @@ table bmi;
 run;
 
 
-/*driniking classfiy*/
-data y3;
-set y3;
-if year in (2005) and drinking=0 then drinking_1 = 1; /*Non-drinker*/
-else if year in (2005) and drinking=88 then drinking_1 = 1; /*Non-drinker*/
-else if year in (2005) and 1<= drinking <=5  then drinking_1 = 2; /*1~5days/month*/
-else if year in (2005) and 6<= drinking <=31  then drinking_1 = 3; /*6~30days/month*/
-else if year in (2005) then drinking_1=8; /*Unknown*/
-run;
-
-data y3;
-set y3;
-if year in (2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021) and drinking in (8 9) then drinking_1 = 1;
-else if year in (2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021) and drinking in (1 2 3 4) then drinking_1=2;
-else if year in (2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021) and drinking in (5 6) then drinking_1=3;
-else if year in (2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021) then drinking_1=8;
-run;
-
-data y3;
-set y3;
-if year in (2005 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021) and drinking="." then drinking_1 = 8;
-if year in (2005 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021) and drinking="" then drinking_1 = 8;
-run;
-
-
 /*missing value*/
 proc freq data=y3;
-   table year old_2 sex town_t BMI grade ho_incm smoking drinking_1 osteo rheum;
+   table year old_2 sex town_t BMI grade ho_incm smoking osteo rheum;
 run;
 /*result: revise old_2 ho_incm*/
 
@@ -714,8 +669,7 @@ table subject;
 run;   
 /*subject 1=118133, subject 0=36193*/
 
-
-/*individual weight using total weight*/
+/*individual ratio weight using total weight*/
 data y6;
 set y5;
 if year=2005 then do;
@@ -772,11 +726,82 @@ run;
 data y7; 
 set y6;
 length period $4 ;
-label period=????;
-if 2005<=year<=2009 then period = 1;
-else if 2010<=year<=2012 then period = 2; 
-else if 2013<=year<=2015 then period = 3;
-else if 2016<=year<=2019 then period = 4;
-else if year=2020 then period = 5;
-else if year=2021 then period = 6;
+label period=grouping years;
+if year=2005 then period = 1;
+else if 2007<=year<=2009 then period = 2;
+else if 2010<=year<=2012 then period = 3;
+else if 2013<=year<=2015 then period = 4;
+else if 2016<=year<=2019 then period = 5;
+else if year=2020 then period = 6;
+else if year=2021 then period = 7;
+run;
+
+/*Table1*/
+/*arrangement by subject*/
+proc sort data=y7;
+by subject;
+run;
+
+/*Table1 detailed weighted(period)*/
+proc surveyfreq data=y7 nomcar;
+strata kstrata;
+cluster psu;
+weight  wt_total;
+by subject;
+table
+period*old_2
+period*sex
+period*town_t
+period*BMI
+period*grade
+period*smoking
+period*ho_incm/ cl row column;
+run;
+
+/*Table1 weighted(nonperiod, direct total)*/
+proc surveyfreq data=y7 nomcar;
+strata kstrata;
+cluster psu;
+weight  wt_total;
+by subject;
+table                         
+period
+old_2
+sex
+town_t
+BMI
+grade
+smoking
+ho_incm / cl row column;
+run;
+
+/*Table1 detail crude*/
+proc sort data=y7;
+by subject;
+run;
+
+proc surveyfreq data=y7 nomcar;
+by subject;
+table
+period*old_2
+period*sex
+period*town_t
+period*bmi
+period*grade
+period*smoking
+period*ho_incm / cl row column;
+run;
+
+/*Table1 crude total*/
+proc surveyfreq data=y7 nomcar;
+by subject;
+table
+period
+old_2
+sex
+town_t
+bmi
+grade
+smoking
+ho_incm / cl row column;
 run;
