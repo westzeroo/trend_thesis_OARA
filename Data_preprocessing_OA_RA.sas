@@ -1,6 +1,7 @@
 /*library*/
-LIBNAME WEZE "C:\Users\user\OneDrive\?? ??\????\1st_practice\WEZE";
+LIBNAME WEZE 'C:\Users\user\OneDrive\?? ??\????\1st_practice\WEZE';
 
+/*data preprocessing*/
 /*smoking naming*/
 data HN05_all; set WEZE.hn05_all; rename BS3_1=smoking; run;
 data HN07_all; set WEZE.hn07_all; rename BS3_1=smoking; run;
@@ -18,7 +19,6 @@ data HN18_all; set WEZE.HN18_all; rename BS3_1=smoking; run;
 data HN19_all; set WEZE.HN19_all; rename BS3_1=smoking; run;
 data HN20_all; set WEZE.HN20_all; rename BS3_1=smoking; run;
 data HN21_all; set WEZE.HN21_all; rename BS3_1=smoking; run;
-
 
 /*two diseases naming*/
 /*rheumatoid arthritis naming(rheum)*/
@@ -38,7 +38,6 @@ data HN18_all; set HN18_all; rename DM3_dg=rheum; run;
 data HN19_all; set HN19_all; rename DM3_dg=rheum; run;
 data HN20_all; set HN20_all; rename DM3_dg=rheum; run;
 data HN21_all; set HN21_all; rename DM3_dg=rheum; run;
-
 /*osteoarthritis naming(osteo)*/
 data HN05_all; set HN05_all; rename DM2_dg=osteo; run;
 data HN07_all; set HN07_all; rename DM2_dg=osteo; run;
@@ -57,11 +56,10 @@ data HN19_all; set HN19_all; rename DM2_dg=osteo; run;
 data HN20_all; set HN20_all; rename DM2_dg=osteo; run;
 data HN21_all; set HN21_all; rename DM2_dg=osteo; run;
 
-
 /*columns extract*/
 data HN05_all;
 set HN05_all;
-keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_bhvex kstrata;
+keep year age psu sex town_t ho_incm educ smoking HE_WT HE_HT HE_WC osteo rheum wt_itv kstrata;
 run;
 
 data HN07_all;
@@ -525,7 +523,6 @@ else if smoking="" then smoking=8;
 else smoking=8;
 run;
 
-
 /*merge smoking datas*/
 data y;
 set smoking_05  smoking_07  smoking_08	smoking_09	smoking_10	smoking_11	smoking_12	smoking_13	smoking_14	smoking_15	smoking_16	smoking_17	smoking_18	smoking_19	smoking_20	smoking_21;
@@ -551,6 +548,10 @@ if rheum=1 then rheum=1;
 if rheum in (0 8 9) then rheum=0;
 if rheum=. then rheum=0;
 if rheum="" then rheum=0;
+run;
+
+proc freq data=y;
+table osteo rheum;
 run;
 
 
@@ -604,21 +605,21 @@ else if year=2016 then wt_total=wt_itvex*(192/3392);
 else if year=2017 then wt_total=wt_itvex*(192/3392);
 else if year=2018 then wt_total=wt_itvex*(192/3392);
 else if year=2019 then wt_total=wt_itvex*(192/3392);
-else if year=2020 then wt_total=wt_itvex*(192/3392);
-else if year=2021 then wt_total=wt_itvex*(180/3392);
+else if year=2020 then wt_total=wt_itvex*(180/3392);
+else if year=2021 then wt_total=wt_itvex*(192/3392);
 run;
 
 
 /*age classify*/
 data y3;
 set y2;
-if 19 <= age =< 29 then old_2=1;
-else if 30 =< age =< 39 then old_2=2;
-else if 40 =< age =< 49 then old_2=3;
-else if 50 =< age =< 59 then old_2=4;
-else if 60 =< age =< 69 then old_2=5;
-else if 70 =< age =< 79 then old_2=6;
-else if 80 =< age then old_2=7;
+if 19 <= age =< 29 then age_g=1;
+else if 30 =< age =< 39 then age_g=2;
+else if 40 =< age =< 49 then age_g=3;
+else if 50 =< age =< 59 then age_g=4;
+else if 60 =< age =< 69 then age_g=5;
+else if 70 =< age =< 79 then age_g=6;
+else if 80 =< age then age_g=7;
 run;
 
 /*bmi classify*/
@@ -636,30 +637,40 @@ else if 25<= he_BMI then bmi=4;/*Obesity*/
 else bmi=8;/*Unknown*/
 run;
 
- proc freq data=y3;
+proc freq data=y3;
 table bmi;
 run;
 
+/*for checking*/
+proc freq data=y3;
+	table subject;
+run;
 
 /*missing value*/
 proc freq data=y3;
-   table year old_2 sex town_t BMI grade ho_incm smoking osteo rheum;
+	table year age_g psu sex town_t ho_incm grade bmi smoking osteo rheum wt_itvex kstrata;
 run;
-/*result: revise old_2 ho_incm*/
+/*result: revise /age_g: 34720/ho_incm: 2175/wt_itvex: 6396*/
 
 data y4; 
 set y3;
-if old_2=. then subject=0;
-else if old_2="" then subject=0;
+if age_g=. then subject=0;
+else if age_g="" then subject=0;
 run;
 proc freq data=y4; table subject; run;
 /*Total : 119606, 34720*/
 
 data y4; set y4;
 if ho_incm=. then subject=0;
-else if ho_incm=" " then subject=0; run;
-proc freq data=Y4; table subject; run; 
+else if ho_incm="" then subject=0; run;
+proc freq data=y4; table subject; run; 
 /*Total : 118133, 36193*/
+
+data y4; set y4;
+if wt_itvex=. then subject=0;
+else if wt_itvex="" then subject=0; run;
+proc freq data=y4; table subject; run; 
+/*Total : 113378, 40948*/
 
 data y5; set y4;
 if subject=. then subject=1;
@@ -667,31 +678,37 @@ run;
 proc freq data=y5;
 table subject;
 run;   
-/*subject 1=118133, subject 0=36193*/
+/*subject 1=113378, subject 0=40948*/
+
+/*for checking*/
+proc freq data=y5;
+	where subject=1;
+	table age_g ho_incm grade year sex town_t bmi smoking osteo rheum;
+run;
 
 /*individual ratio weight using total weight*/
 data y6;
 set y5;
 if year=2005 then do;
-wt_ind=wt_itvex*(600/600);
+wt_ind=wt_itvex*(600/700);
 end;
 if year=2007 then do;
-wt_ind=wt_itvex*(100/500);
+wt_ind=wt_itvex*(100/700);
 end;
 if year=2008 then do;
-wt_ind=wt_itvex*(200/500);
+wt_ind=wt_itvex*(200/592);
 end;
 if year=2009 then do;
-wt_ind=wt_itvex*(200/500);
+wt_ind=wt_itvex*(200/592);
 end;
 if year=2010 then do;
-wt_ind=wt_itvex*(192/576);
+wt_ind=wt_itvex*(192/592);
 end;
 if year=2011 then do;
-wt_ind=wt_itvex*(192/576);
+wt_ind=wt_itvex*(1/3);
 end;
 if year=2012 then do;
-wt_ind=wt_itvex*(192/576);
+wt_ind=wt_itvex*(1/3);
 end;
 if year=2013 then do;
 wt_ind=wt_itvex*(1/3);
@@ -703,16 +720,16 @@ if year=2015 then do;
 wt_ind=wt_itvex*(1/3);
 end;
 if year=2016 then do;
-wt_ind=wt_itvex*(1/4);
+wt_ind=wt_itvex*(1/3);
 end;
 if year=2017 then do;
-wt_ind=wt_itvex*(1/4);
+wt_ind=wt_itvex*(1/3);
 end;
 if year=2018 then do;
-wt_ind=wt_itvex*(1/4);
+wt_ind=wt_itvex*(1/3);
 end;
 if year=2019 then do;
-wt_ind=wt_itvex*(1/4);
+wt_ind=wt_itvex*(1/3);
 end;
 if year=2020 then do;
 wt_ind=wt_itvex*(1);
@@ -722,86 +739,16 @@ wt_ind=wt_itvex*(1);
 end;
 run;
 
-/*Grouping years*/
+/*period groups*/
 data y7; 
 set y6;
 length period $4 ;
-label period=grouping years;
-if year=2005 then period = 1;
-else if 2007<=year<=2009 then period = 2;
-else if 2010<=year<=2012 then period = 3;
-else if 2013<=year<=2015 then period = 4;
-else if 2016<=year<=2019 then period = 5;
+label period=period groups;
+if 2005<=year<=2007 then period = 1;
+else if 2008<=year<=2010 then period = 2;
+else if 2011<=year<=2013 then period = 3;
+else if 2014<=year<=2016 then period = 4;
+else if 2017<=year<=2019 then period = 5;
 else if year=2020 then period = 6;
 else if year=2021 then period = 7;
-run;
-
-/*Table1*/
-/*arrangement by subject*/
-proc sort data=y7;
-by subject;
-run;
-
-/*Table1 detailed weighted(period)*/
-proc surveyfreq data=y7 nomcar;
-strata kstrata;
-cluster psu;
-weight  wt_total;
-by subject;
-table
-period*old_2
-period*sex
-period*town_t
-period*BMI
-period*grade
-period*smoking
-period*ho_incm/ cl row column;
-run;
-
-/*Table1 weighted(nonperiod, direct total)*/
-proc surveyfreq data=y7 nomcar;
-strata kstrata;
-cluster psu;
-weight  wt_total;
-by subject;
-table                         
-period
-old_2
-sex
-town_t
-BMI
-grade
-smoking
-ho_incm / cl row column;
-run;
-
-/*Table1 detail crude*/
-proc sort data=y7;
-by subject;
-run;
-
-proc surveyfreq data=y7 nomcar;
-by subject;
-table
-period*old_2
-period*sex
-period*town_t
-period*bmi
-period*grade
-period*smoking
-period*ho_incm / cl row column;
-run;
-
-/*Table1 crude total*/
-proc surveyfreq data=y7 nomcar;
-by subject;
-table
-period
-old_2
-sex
-town_t
-bmi
-grade
-smoking
-ho_incm / cl row column;
 run;
